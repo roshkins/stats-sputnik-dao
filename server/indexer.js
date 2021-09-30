@@ -22,7 +22,7 @@ async function queryPg(block_timestamp) {
        AND a.action_kind = 'FUNCTION_CALL'
        AND e.status = 'SUCCESS_VALUE'
        AND r.predecessor_account_id != 'system'
-       AND t.receiver_account_id LIKE ('%.sputnikdao.near')
+       AND t.receiver_account_id LIKE ('%.sputnik-dao.near')
        AND t.block_timestamp >= $1
      ORDER BY t.block_timestamp ASC
      LIMIT 300
@@ -113,7 +113,7 @@ async function getTransactions(block_timestamp) {
        AND a.action_kind = 'FUNCTION_CALL'
        AND e.status = 'SUCCESS_VALUE'
        AND r.predecessor_account_id != 'system'
-       AND t.receiver_account_id LIKE ('%.sputnikdao.near')
+       AND t.receiver_account_id LIKE ('%.sputnik-dao.near')
        AND t.block_timestamp >= :block_timestamp
      ORDER BY t.block_timestamp ASC
      LIMIT :limit

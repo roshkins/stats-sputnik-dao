@@ -5,7 +5,7 @@ import {SyncedCron} from 'meteor/littledata:synced-cron';
 import {DaoData} from "../imports/api/data";
 import {Decimal} from "decimal.js";
 
-export const factory = 'sputnikdao.near';
+export const factory = 'sputnik-dao.near';
 export const todayDate = new Date().toISOString().slice(0, 10);
 
 export const NEAR_RPC_URL = 'https://rpc.mainnet.near.org'
@@ -28,14 +28,28 @@ async function getDaoList(factory) {
 async function getDaoData(dao) {
   const state = await accountExists(dao);
   if (state) {
-    const council = await account.viewFunction(dao, 'get_council', {})
-    const purpose = await account.viewFunction(dao, 'get_purpose', {})
-    const votePeriod = await account.viewFunction(dao, 'get_vote_period', {})
-    const bond = await account.viewFunction(dao, 'get_bond', {})
+    const policy = await account.viewFunction(dao, 'get_policy', {})
+    const config = await account.viewFunction(dao, 'get_config', {})
+    const stakingContract = await account.viewFunction(dao, 'get_staking_contract', {})
+    const availableAmount = await account.viewFunction(dao, 'get_available_amount', {})
+    const delegationTotalSupply = await account.viewFunction(dao, 'delegation_total_supply', {})
+    const purpose = config.purpose;
+    const votePeriod = policy.proposal_period;
+    const bond = policy.proposal_bond;
+
+    let council = [];
+    for (let role of policy.roles) {
+      if (typeof role.kind === 'object') {
+        council = council.concat(role.kind.Group);
+      }
+    }
+
+    council = Array.from(new Set(council));
+
 
     let limit = 100;
     let fromIndex = 0;
-    let numberProposals = await account.viewFunction(dao, 'get_num_proposals', {})
+    let numberProposals = await account.viewFunction(dao, 'get_last_proposal_id', {})
     console.log(dao + ": " + numberProposals);
     let proposals = [];
 

@@ -10,7 +10,7 @@ function Copyright() {
     <CssBaseline>
       <Typography variant="body2" color="textSecondary" align="center">
         <Link color="inherit" href="/">
-          Sputnik v1 Dao Stats
+          Sputnik v2 Dao Stats
         </Link>{' '}
         {new Date().getFullYear()}.
         {" "}The software is an <b>open source</b> and provided “as is”, without warranty of any kind.

@@ -500,7 +500,7 @@ const Index = () => {
           >
             <Grid item xs={12} sm={6} md={6}>
               <Typography variant="h4" component="h5" gutterBottom>
-                Sputnik DAO v1 Statistics <Divider/>under development
+                Sputnik DAO v2 Statistics <Divider/>under development
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>

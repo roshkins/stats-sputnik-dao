@@ -1,0 +1,50 @@
+Usage: near <command> [options]
+
+Commands:
+  near create-account <accountId>                                                       create a new developer account (subaccount of the masterAccount, ex: app.alice.test)
+  near state <accountId>                                                                view account state
+  near delete <accountId> <beneficiaryId>                                               delete an account and transfer funds to beneficiary account.
+  near keys <accountId>                                                                 view account public keys
+  near tx-status <hash>                                                                 lookup transaction status by hash
+  near deploy [accountId] [wasmFile] [initFunction] [initArgs] [initGas] [initDeposit]  deploy your smart contract
+  near dev-deploy [wasmFile]                                                            deploy your smart contract using temporary account (TestNet only)
+  near call <contractName> <methodName> [args]                                          schedule smart contract call which can modify state
+  near view <contractName> <methodName> [args]                                          make smart contract call which can view state
+  near view-state <account-id> [prefix]                                                 View contract storage state
+  near send <sender> <receiver> <amount>                                                send tokens to given receiver
+  near clean                                                                            clean the build environment
+  near stake [accountId] [stakingKey] [amount]                                          create staking transaction
+  near login                                                                            logging in through NEAR protocol wallet
+  near repl                                                                             launch interactive Node.js shell with NEAR connection available to use. The repl's initial context contains `nearAPI`, `near`and `account` if an accountId cli argument is provided. To load a script into the repl use  ".load script.js".
+
+                                                                                        USAGE:
+                                                                                            near repl --accountId bob
+                                                                                            > console.log(account)
+                                                                                            > .load script.js
+  near generate-key [account-id]                                                        generate key or show key from Ledger
+  near add-key <account-id> <access-key>                                                Add an access key to given account
+  near delete-key <account-id> <access-key>                                             delete access key
+  near validators <epoch>                                                               lookup validators for given epoch (or current / next)
+  near proposals                                                                        show both new proposals in the current epoch as well as current validators who are implicitly proposing
+  near evm-call <evmAccount> <contractName> <methodName> [args]                         Schedule call inside EVM machine
+  near evm-dev-init <accountId> [numAccounts]                                           Creates test accounts using NEAR Web3 Provider
+  near evm-view <evmAccount> <contractName> <methodName> [args]                         View call inside EVM machine
+
+Options:
+      --help                     Show help  [boolean]
+      --version                  Show version number  [boolean]
+      --nodeUrl, --node_url      NEAR node URL  [string] [default: "https://rpc.testnet.near.org"]
+      --networkId, --network_id  NEAR network ID, allows using different keys based on network  [string] [default: "testnet"]
+      --helperUrl                NEAR contract helper URL  [string]
+      --keyPath                  Path to master account key  [string]
+      --accountId, --account_id  Unique identifier for the account  [string]
+      --useLedgerKey             Use Ledger for signing with given HD key path  [string] [default: "44'/397'/0'/0'/1'"]
+      --seedPhrase               Seed phrase mnemonic  [string]
+      --seedPath                 HD path derivation  [string] [default: "m/44'/397'/0'"]
+      --walletUrl                Website for NEAR Wallet  [string]
+      --contractName             Account name of contract  [string]
+      --masterAccount            Master account used when creating new accounts  [string]
+      --helperAccount            Expected top-level account for a network  [string]
+  -v, --verbose                  Prints out verbose output  [boolean] [default: false]
+
+Check out our epic whiteboard series: http://near.ai/wbs
