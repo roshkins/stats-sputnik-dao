@@ -322,18 +322,18 @@ const Index = () => {
       let expired = 0;
       if (item.proposals) {
         item.proposals.map((i, k) => {
-          if (i.status === 'Success') {
+          if (i.status === 'Approved') {
             successful = successful + 1;
           }
-          if (i.status === 'Fail') {
+          if (i.status === 'Rejected') {
             failed = failed + 1;
           }
 
-          if (i.status === 'Vote' && i.vote_period_end > (new Date()).getTime() * 1000 * 1000) {
+          if (i.status === 'InProgress') {
             progress = progress + 1;
           }
 
-          if (i.status === 'Vote' && i.vote_period_end < (new Date()).getTime() * 1000 * 1000) {
+          if (i.status === 'Expired') {
             expired = expired + 1;
           }
 
