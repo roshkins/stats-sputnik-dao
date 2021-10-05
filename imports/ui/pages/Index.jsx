@@ -310,6 +310,7 @@ const Index = () => {
   }
 
 
+
   let tvl = 0;
   let rows = [];
   if (!isLoadingDaoData && daoData && !isLoadingNearPrice && nearPrice) {
@@ -341,17 +342,24 @@ const Index = () => {
         })
       }
 
-
+      // Fancy monkeypatching hack to allow multiple data to be passed, with a default string value
+      const DefaultStringArrayLike = function defaultStringArrayLike(array) {
+        if (!(array instanceof Array)) {
+          array = Array.from(arguments)
+        }
+        Object.assign(this, array);
+        this.toString = function () { return this[0].toString() };
+      }
       const row = {
         id: id,
         daoName: item.daoName,
-        nearAmount: new Decimal(item.amount / yoctoNEAR).toFixed(0),
-        usdAmount:  new Decimal(nearPrice[0].near_price_data.current_price.usd).mul(new Decimal(item.amount / yoctoNEAR)).toFixed(0),
-        proposals: item.proposals ? item.proposals.length : 0,
-        progress: progress,
-        successful: successful,
-        failed: failed,
-        expired: expired,
+        nearAmount: new DefaultStringArrayLike(new Decimal(item.amount / yoctoNEAR).toFixed(0)),
+        usdAmount: new DefaultStringArrayLike(new Decimal(nearPrice[0].near_price_data.current_price.usd).mul(new Decimal(item.amount / yoctoNEAR)).toFixed(0)),
+        proposals: new DefaultStringArrayLike(item.proposals ? item.proposals.length : 0),
+        progress: new DefaultStringArrayLike(progress),
+        successful: new DefaultStringArrayLike(successful),
+        failed: new DefaultStringArrayLike(failed),
+        expired: new DefaultStringArrayLike(expired),
       };
       id = id + 1;
       rows.push(row);
@@ -505,7 +513,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <Typography color="textSecondary" gutterBottom>
-                This website is in beta and does not provide an investment or other advice.<br/> Please do your own
+                This website is in beta and does not provide investment or other advice.<br /> Please do your own
                 research.
               </Typography>
             </Grid>
